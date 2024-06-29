@@ -62,26 +62,7 @@ $(function () {
         $(".right-window").css("display", "none")
         $(".header_back").css("display", "none")
     })
-    $("#invite_button").click(function () {
-        const to=prompt ("enter e-mail id")
-        let data = {
-        url:window.location.href,
-            to:to
-        }
-        $.ajax({
-            url:"/send-mail",
-            type:"post",
-            data:JSON.stringfy(data),
-            dataType:"json",
-            contentType:"application/json",
-            success:function(result){
-                alert("invite sent")
-            },
-            error:function(result){
-                alert(result.responseJSON)
-            }
-        })
-    })
+
     $("#send").click(function () {
         if ($("#chat_message").val().length !== 0) {
             socket.emit("message", $("#chat_message").val());
@@ -124,6 +105,27 @@ $(function () {
             $("#stop_video").toggleClass("background_red");
             $("#stop_video").html(html)
         }
+    })
+
+    $("#invite_button").click(function () {
+        const to = prompt("Enter the email address")
+        let data = {
+            url: window.location.href,
+            to: to
+        }
+        $.ajax({
+            url: "/send-mail",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                alert("Invite sent!")
+            },
+            error: function (result) {
+                console.log(result.responseJSON)
+            }
+        })
     })
 
 })
